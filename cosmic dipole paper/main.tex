@@ -1,0 +1,481 @@
+\documentclass[aps,prd,10pt,nofootinbib,twocolumn,eqsecnum,showpacs,showkeys,superscriptaddress,preprintnumbers,altaffilletter]{revtex4-2}
+%
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{soul}
+\usepackage{dcolumn}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{amsbsy}
+\usepackage{color}
+\usepackage{rotating}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{cleveref}
+\usepackage{aas_macros}
+\usepackage{diagbox}
+\usepackage{hhline}
+\usepackage{enumerate}
+\usepackage{makecell}
+\usepackage{subfigure}
+
+%- 
+% to use lens_plot
+\usepackage{standalone}
+\usepackage{import}
+\usepackage{tikz} %diagrams
+\usepackage{colortbl}
+%\usepackage[all]{xy} %array diagrams
+\tikzset{
+  pics/carc/.style args={#1:#2:#3}{
+    code={
+      \draw[pic actions] (#1:#3) arc(#1:#2:#3);
+    }
+  }
+}
+%-
+
+\usepackage{booktabs}
+\newcommand{\dtoprule}{\specialrule{1pt}{0pt}{0.4pt}%
+            \specialrule{0.3pt}{0pt}{\belowrulesep}%
+            }
+\newcommand{\dbottomrule}{\specialrule{0.3pt}{0pt}{0.4pt}%
+            \specialrule{1pt}{0pt}{\belowrulesep}%
+            }
+            
+\DeclareMathOperator\arctanh{arctanh}
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+
+\begin{document}
+
+\renewcommand{\tabcolsep}{1.5mm}
+\renewcommand{\arraystretch}{1.5}
+
+%\title{Study on Mass-Sheet Degeneracy in Gravitational Waves Microlensing}
+\title{Measuring the cosmic dipole with golden dark sirens in the era of next-generation ground-based gravitational wave detectors}
+\date{\today}
+
+\author{Anson Chen}
+\email{anson.chen@ligo.org}
+\affiliation{International Center for Theoretical Physics (Asia-Pacific), University of Chinese Academy of Sciences, No.80 Zhongguancun East St., Beijing, China}
+
+\begin{abstract}
+The tensions between cosmological parameter measurements from the early-universe and the late-universe datasets offer an exciting opportunity to explore new physics, if not accounted for unknown systematics. Apart from the well-known Hubble tension, a tension up to $\sim4.9\sigma$ in the cosmic dipole has also been reported. While the cosmic dipole is mainly induced by the observer’s kinetic motion, an intrinsic dipole arising from the anisotropy of the universe could also play an import role. Such an intrinsic
+anisotropy can be a dark energy mimicker that causes the observed accelerating expansion of the universe. As a new and powerful tool, gravitational waves can serve as an independent probe to the cosmic dipole. A useful type of events to achieve this is the “golden dark sirens”, which are near-by well-localized compact binary coalescences whose host galaxies can be identified directly due to precise localization. By forecasting golden dark sirens obtained from 10-year observations using different possible detector networks in the future, we find that the standard LIGO-Virgo-KAGRA detectors are not able to detect a meaningful amount of golden dark sirens, and hence next-generation ground-based detectors are essential to obtain a strong constraint on the cosmic dipole. In particular, we find that a three-detector network consisting of more than one next-generation detectors can yield a constraint on the cosmic dipole at an order of $10^{-3}$ when jointly measured with $H_0$. Moreover, a constraint on the cosmic dipole at an order of $10^{-4}$ can be achieved when fixing $H_0$.
+
+%With the LIGO-Virgo-KAGRA and the next-generation ground-based detectors like ET and CE, near-by well-localized merger events can be detected, whose host galaxies can be identified directly due to precise localization. These events are called “golden dark sirens”. By forecasting golden dark sirens obtained from 10-year observations using different possible detector networks in the future, we investigate the constraint on the cosmic dipole jointly with the Hubble constant. We find that a three-detector network consisting of more than one next-generation detectors can yield a strong constraint on the cosmic dipole at an order of $10^{-3}$ when jointly measured with $H_0$. Moreover, a constraint on the cosmic dipole at an order of $10^{-4}$ can be achieved when fixing $H_0$.
+\end{abstract}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%
+
+The Lambda Cold Dark Matter ($\Lambda$CDM) model is an excellent and concise fit to the cosmic microwave background (CMB) dataset from the Planck mission \cite{Planck:2018vyg}, which offers strict constraints on cosmology parameters. However, datasets from late universe observations give rise to several tensions to the measurements of some cosmological parameters, such as the Hubble tension and the $S_8$ tension (see review in \cite{Abdalla:2022yfr}). The Hubble tension between measurement from the Planck mission ($H_0=67.49\pm0.50~{\rm km~s}^{-1}{\rm Mpc}^{-1}$) \cite{Planck:2018vyg} and that by using Cepheids and Type Ia supernovae (SNIa) as standard candles by the SH0ES collaboration ($H_0=74.03\pm1.42~{\rm km~s}^{-1}{\rm Mpc}^{-1}$) \cite{Riess:2019cxk} has reached $\sim5\sigma$. If such a discrepancy is not caused by unknown systematic errors, it is most likely a hint to new physics beyond the $\Lambda$CDM model.
+
+In addition, a tension in the cosmic dipole also emerges from observations in the local universe compared to the CMB measurement. The cosmic dipole consists of two parts, namely the kinetic dipole and the intrinsic dipole. The kinetic dipole is induced by the motion of the solar system with respect to the CMB rest frame. Its most precise measurement comes from the Planck satellite, which yields an amplitude of $(1.23\pm0.00036)\times10^{-3}$ and a direction of $(264.02^\circ\pm0.01^\circ,48.253^\circ\pm0.005^\circ)$ in galactic coordinates \cite{Planck:2018nkj}. On the other hand, the intrinsic dipole could arise from the violation of the cosmology principle of isotropy and homogeneity. Such an anisotropy may be resulted from backreaction of cosmological perturbations, and can resemble the effects of dark energy \cite{Kolb:2005da,Bolejko:2016qku}. Although its origin is not yet fully understood, the observed cosmic dipole tension might reveal a hint of the existence of an intrinsic dipole. For example, the dipole inferred from quasar counting in the CatWISE2020 catalogue yields an amplitude of $1.5\times10^{-2}$, which results in a tension of $4.9\sigma$ to the CMB solar dipole \cite{Secrest:2020has}. In addition, the dipole amplitude measured from number counting of radio galaxy catalogues, such as the TIFR GMRT Sky Survey (TGSS), the NRAO VLA Sky Survey (NVSS), and the Westerbork Northern Sky Survey (WENSS), ranges from $0.010$ to $0.070$ with an uncertainty in the order of $10^{-3}$ \cite{Blake:2002gx,2011ApJ...742L..23S,Gibelyou:2012ri,Tiwari:2013vff,Fernandez-Cobos:2013fda,Tiwari:2013ima,Bengaly:2017slg,Siewert:2020krp}, which are several times larger than the CMB results. Moreover, there also exists a $3.3\sigma$ tension in the dipole amplitude measured with SNIa surveys \cite{Singal:2021crs}. Although some efforts have been made to alleviate the cosmic dipole tension, such as associating the local dipole with the impact from local structure \cite{Tiwari:2015tba,Colin:2017juj}, or explaining it by the existence of a large void in the local universe \cite{Rubart:2014lia}, they cannot fully reconcile the tension. In addition, a time evolution model of radio source population is proposed to ease the tension \cite{Dalang:2021ruy}, but it has been opposed by recent works \cite{vonHausegger:2024jan,vonHausegger:2024fcu}.
+
+On the other hand, the use of gravitational waves (GWs) from compact binary coalescences (CBCs) in studying cosmology has been rapidly developed in the past few years. The first binary neutron star (BNS) merger GW170817 accompanied by electromagnetic (EM) counterparts gives an estimation of the Hubble constant $H_0=70^{+12}_{-8}~{\rm km~s}^{-1}{\rm Mpc}^{-1}$ \cite{LIGOScientific:2017adf}. Such a GW event is called a bright siren, whose host galaxy can be identified with follow-up observations of EM signals. However, a second bright siren hasn't been detected in observation runs of the LIGO-Virgo-KAGRA (LVK) detector network since then. Alternatively, a Bayesian framework to measure $H_0$ with a set of dark sirens, which are GW events without EM counterparts such as binary black hole (BBH) and neutron-star-black-hole (NSBH) mergers, has become a mature technique \cite{Schutz1986,Finke:2021aom,Mastrogiovanni:2021wsd,Mastrogiovanni:2023emh,Mastrogiovanni:2023zbw,Gray:2019ksv,Gray:2021sew,Gray:2023wgj}. In such analysis, the redshift prior of GW events is constructed with compact object population and merger rate information, as well as galaxy redshifts within GW localization areas obtained from galaxy catalogues. By combining the bright siren result with the dark siren analysis using 42 selected BBHs from the GWTC-3 catalogue, a better constraint of $H_0=68^{+8}_{-6} {\rm km~s^{-1}Mpc^{-1}}$ is obtained \cite{LIGOScientific:2021aug}.
+
+Although the number of events detected by LVK has reached an order of $10^2$ today, the current data is still insufficient to probe the cosmic dipole with number counting or BBH mass distribution \cite{Stiskalek:2020wbj,Essick:2022slj,Kashyap:2022ibx}. However, some forecasts have been made to measure the cosmic dipole using the next-generation ground-based or space-based detectors, such as the Einstein Telescope (ET) \cite{Punturo:2010zz,Branchesi:2023mws}, the Cosmic Explorer (CE) \cite{Evans:2021gyd,Srivastava:2022slt,Evans:2023euw}, and the Laser Interferometer Space Antenna (LISA) \cite{amaroseoane2017,Bayle:2022hvs}. Since ET and CE are expected to detect CBC signals in an order of $10^5$-$10^6$ per year, measurements of the cosmic dipole with CBC number counting in the era of next-generation detectors have been discussed in ref. \cite{Mastrogiovanni:2022nya,Grimm:2023tfl}. In addition, measurements with mock bright sirens detected by different future detector networks are performed in \cite{Cousins:2024bhk}, where an order of $10^3$ bright sirens are forecasted with the network of 1ET+2CE per year. Furthermore, the potential in dipole measurements for bright sirens in decihertz or millihertz frequency bands from massive BBH mergers has been analyzed in \cite{Cai:2017aea,Cai:2019cfw}. On the other hand, measurements of the kinetic dipole from stochastic GW background by pulsar timing arrays have also been proposed in \cite{Cusin:2022cbb,Tasinato:2023zcg,Cruz:2024svc,Cruz:2024diu}.
+
+Despite the accurate measurement of the cosmic dipole with mock bright sirens in \cite{Cousins:2024bhk,Cai:2017aea,Cai:2019cfw}, there is a concern that the original luminosity distances ($D_L^0$) of GW events in the CMB rest frame are assumed to be known in these analyses, and the dipole measurement is obtained by $\chi^2$ minimization between observed $D'_L$ and theoretical $D_L$ constructed by $D_L^0$ with dipole modification. While in reality, $D_L^0$ cannot be obtained by observations. Even though EM counterparts of bright sirens can be used to pin down their host galaxies, the galaxy redshifts are also modified by the cosmic dipole, and hence cannot be converted to $D_L^0$ directly. Moreover, the detection rate of bright sirens are still not fully understood, which may undermine the measurability of the cosmic dipole with bright sirens. Therefore in this work, we propose a more robust measurement of the cosmic dipole using ``golden" dark sirens, which are highly well-localized CBCs at redshift $z<0.1$ so that only one brightest galaxy can be found within the CBC localization area.  This brightest galaxy is then considered to be the host galaxy of the CBC, from which its redshift can be determined with follow-up EM observations \cite{Singer:2016eax}. Highly precise measurements of $H_0$ with golden dark sirens have been forecasted in various works \cite{Nishizawa:2016ood,Yu:2020vyy,Borhanian:2020vyr,Gupta:2022fwd,Chen:2024gdn}. Because of the promising prospect to obtain their redshifts, we will thus forecast the cosmic dipole measurability of golden dark sirens detected by different future detector networks consisting of ET, CE and LVK with A+ or A\# sensitivity~\cite{A_sharp_report}.
+
+On the other hand, since the cosmic dipole changes the observed values of $D_L$ for CBCs, it may cause a bias in $H_0$ measurement. Furthermore, for the dark siren method, the improvement in $H_0$ constraint relies on increasing the event number. However, the observed event number density would also vary in different regions on the sky due to the cosmic dipole effects. As a result, a bias in $H_0$ constraint may also be induced by uneven event numbers in different parts of the sky when combining posteriors for all events. Therefore we will also investigate such an effect from the cosmic dipole in the dark siren method in this work.
+
+The structure of this paper is presented as followed. In Sec. \ref{sec:cosmo_effects}, we first investigate the effects of the cosmic dipole in $H_0$ measurement with the dark siren method. Then in Sec. \ref{sec:measurements}, we introduce the approach to jointly constrain $H_0$ and the cosmic dipole using golden dark sirens forecasted with different detector networks. The results are then shown in Sec. \ref{sec:results}. Finally, Sec. \ref{sec:conclusions} summarizes the findings of this work. 
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Cosmic dipole effects in dark siren cosmology}
+\label{sec:cosmo_effects}
+%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we will analyze the effects due to the presence of the cosmic dipole in $H_0$ measurement with the dark siren method. We use mock GW event simulation to forecast $H_0$ constraint from data in the fourth and the fifth observation run (O4 and O5) of the LVK, and examine whether there exists biases induced by the cosmic dipole.
+
+\subsection{The cosmic dipole}
+
+We denote the cosmic dipole amplitude along the line-of-sight $\hat{z}(\phi,\theta)$ as $g(\hat{n}\cdot\hat{z})$, where $g$ denotes the magnitude of the dipole, and $\hat{n}(\phi^{\rm dip},\theta^{\rm dip})$ is the direction of the dipole given by
+\begin{equation}
+    \hat{n} = (\cos\phi^{\rm dip}\sin\theta^{\rm dip}, \sin\phi^{\rm dip}\sin\theta^{\rm dip}, \cos\theta^{\rm dip}).
+\end{equation}
+Here $\phi^{\rm dip}$ and $\theta^{\rm dip}$ are the right ascension and the declination of the dipole direction. For the kinetic part of the cosmic dipole, $g^{\rm kin}=-|\vec{v}_o|/c$, where $\vec{v}_o$ is the observer velocity with respect to the CMB rest frame. Note that the dipole direction is opposite to the observer velocity direction by our definition.
+
+The observed luminosity distance of a source is modified by the cosmic dipole effects as \cite{Bonvin:2005ps}
+\begin{equation}
+    D_L^{\rm obs} = D_L^0[1+g(\hat{n}\cdot\hat{z})].
+    \label{eq:DL_dip}
+\end{equation}
+Meanwhile the observed redshift of the source is also modified by
+\begin{equation}
+    1+z^{\rm obs} = (1+z^0)[1+g(\hat{n}\cdot\hat{z})],
+    \label{eq:z_dip}
+\end{equation}
+where $D_L^0$ and $z^0$ are the luminosity distance and the redshift in the CMB rest frame. In the local universe we have 
+\begin{equation}
+	D_L^0(z^0) = \frac{c(1+z^0)}{H_0}\int_0^{z^0} \frac{{\rm d}z'}{\sqrt{\Omega_{m0}(1+z')^3+\Omega_{\Lambda 0}}},
+\end{equation}
+where $\Omega_{m0}$ and $\Omega_{\Lambda 0}$ are energy density of matter and dark energy today.
+
+Moreover, since the observed mass of a CBC from a GW signal is the redshifted mass, its relation to the source-frame mass $m^{\rm s}$ also becomes
+\begin{align}
+    m^{\rm obs} & = m^{\rm s}(1+z^{\rm obs}) \nonumber\\
+    & = m^{\rm s}(1+z^0)[1+g(\hat{n}\cdot\hat{z})].
+    \label{eq:m_dip}
+\end{align}
+Since the dark siren method uses information from the black hole mass distribution model, the cosmic dipole effects in observed component masses of CBCs may lead to systematics in $H_0$ constraints.
+
+
+\subsection{Bayesian framework for dark siren cosmology}
+
+In the hierarchical Bayesian formalism \cite{Fishbach:2018edt,Mandel:2018mve,Vitale:2020aaz}, the posterior probability of a set of hyper-parameters $\Lambda$ given a set of GW data $\{x\}$ from $N_{\rm obs}$ observed events reads 
+\begin{equation}
+    p(\Lambda|\{x\}) \propto {\cal L}(\{x\}|N_{\rm obs},\Lambda)p(N_{\rm obs}|\Lambda) \pi(\Lambda),
+\end{equation}
+where $\Lambda$ includes parameters in the population model, merger rate evolution, and the cosmology model. The term $\pi(\Lambda)$ is the prior on $\Lambda$, and $p(N_{\rm obs}|\Lambda)$ is the probability of observing $N_{\rm obs}$ events out of an expected number of observations $N_{\rm exp}$, which can be described by a Poission distribution. By choosing a prior $\pi(N_{\rm exp})\propto 1/N_{\rm exp}$, it can be marginalized over in the following analysis \cite{Fishbach:2018edt}.
+
+The term ${\cal L}(\{x\}|N_{\rm obs},\Lambda)$ is the likelihood of GW data $\{x\}$ form $N_{\rm obs}$ GW events, which can be expanded as \cite{Mastrogiovanni:2021wsd}
+\begin{equation}
+	{\cal L}(\{x\}|N_{\rm obs},\Lambda) = \prod^{N_{\rm obs}}_i \frac{\int p(x_i|\theta_p,\Lambda)p_{\rm pop}(\theta_p|\Lambda){\rm d}\theta_p}{\int p_{\det}(\theta_p,\Lambda)p_{\rm pop}(\theta_p|\Lambda){\rm d}\theta_p}.
+	\label{eq:bayesian_likelihood}
+\end{equation}
+Here $p(x_i|\theta_p,\Lambda)$ is the likelihood of GW data form a detected event given GW signal parameters $\theta_p$ and hyper-parameters $\Lambda$, and $p_{\rm pop}(\theta_p|\Lambda)$ is the prior on $\theta_p$ given a population model. The term $p_{\det}(\theta_p,\Lambda)$ denotes the detection probability of GW data given selection criteria such as the signal-to-noise (SNR, $\rho$) threshold ($\rho_{\rm th}$), which is computed by
+\begin{equation}
+	p_{\det}(\theta_p,\Lambda) = \int_{\rho>\rho_{\rm th}} p(x_i|\theta_p,\Lambda)p_{\rm pop}(\theta_p|\Lambda) {\rm d}x_i .
+\end{equation}
+%\begin{align}
+%    {\cal L}(\{x\}|\Lambda) \propto & e^{-N_{\rm exp}(\Lambda)}\prod^{N_{\rm obs}}_{i}T_{\rm obs}\int {\rm d}\theta_p {\rm d}z~{\cal L}_{\rm GW}(x_i|\theta_p,z,\Lambda) \nonumber\\
+%    & \times \frac{1}{1+z}\frac{{\rm d}N_{\rm CBC}}{{\rm d}\theta_p {\rm d}z {\rm d}t_s}(\Lambda).
+%\end{align}
+%Here $N_{\rm exp}$ is the expected detection number of CBC events in the observation time $T_{\rm obs}$, $\theta_p$ is the GW signal parameters, and $t_s$ is the source-frame time. This likelihood inference depends on the CBC merger rate:
+%\begin{equation}
+%	\frac{{\rm d}N_{\rm CBC}}{{\rm d}\theta_p{\rm d}z{\rm d}t_s} (\Lambda),
+%\end{equation}
+%where the hyper-parameter set $\Lambda$ includes population model parameters and cosmological parameters. 
+
+At the moment, there are several Bayesian framework code packages for dark siren cosmology, for example \texttt{ICAROGW} \cite{Mastrogiovanni:2021wsd,Mastrogiovanni:2023emh,Mastrogiovanni:2023zbw}, \texttt{GWCOSMO} \cite{Gray:2019ksv,Gray:2021sew,Gray:2023wgj} and \texttt{CHIMERA} \cite{Borghi:2023opd,Tagliazucchi:2025ofb}. They both include population analysis and galaxy catalogue supports for cosmological measurements. However, the current GLADE+ galaxy catalogue \cite{Dalya:2021ewn} used in LVK cosmology analysis is highly incomplete at large distances ($D_L>130$ Mpc). Therefore, current galaxy catalogue supports in $H_0$ measurements are very limited for LVK events (see e.g. \cite{Gray:2023wgj,Chen:2023wpj}). Hence, to avoid increased computational costs form associating with galaxt catalogues, we use \texttt{ICAROGW} v1.0 \cite{Mastrogiovanni:2021wsd} in this work to demonstrate the effects of the cosmic dipole in $H_0$ measurements, which only uses the population method, such that
+\begin{equation}
+	p_{\rm pop}(\theta_p|\Lambda) \propto p(m_1^s,m_2^s|\Lambda)\frac{{\rm d}V_c}{{\rm d}z}(\Lambda)p_{\rm rate}(z|\Lambda).
+\end{equation}
+Here $p(m_1^s,m_2^s|\Lambda)$ is the phenomenological compact object mass distribution in the source frame. The term ${\rm d}V_c/{\rm d}z$ implies that the number of CBCs grows with the comoving volume $V_c$ in terms of redshift. The last term $p_{\rm rate}(z|\Lambda)$ describes the merger rate evolution in redshift, which is assumed to be analogous to the Madau star formation rate redshift evolution model \cite{Madau:2014bja,Callister:2020arv} as
+\begin{equation}
+	p_{\rm rate}(z|\Lambda) = R_0 [1+(1+z_p)^{-\gamma-k}] \frac{(1+z)^\gamma}{1+\left(\frac{1+z}{1+z_p}\right)^{\gamma+k}}.
+\end{equation}
+From GWTC-3 analysis, a powerlaw mass distribution with the addition of a Gaussian peak is favoured for the black hole population model $p(m_1^s,m_2^s|\Lambda)$ \cite{KAGRA:2021duu}, which contains 8 parameters.
+
+\subsection{GW event simulation}
+\label{sec:GW_simulation}
+
+We use the \texttt{GWSim} package \cite{Karathanasis:2022hrb} to simulate detected GW events with different detector networks and sensitivities. \texttt{GWSim} encodes the compact object population models and merger rate redshift evolution used in LVK data analysis. Its original version contains detector sensitivities up to the LVK O4 stage\footnote{L1 and H1: https://git.ligo.org/publications/detectors/obs-scenarios-2019/blob/master/CurvesForSimulation/aligo\_O4high.txt\\
+V1: https://git.ligo.org/publications/detectors/obs-scenarios-2019/blob/master/CurvesForSimulation/avirgo\_O4high\_NEW.txt\\
+K1: https://git.ligo.org/publications/detectors/obs-scenarios-2019/blob/master/CurvesForSimulation/kagra\_80Mpc.txt}. We modify it to include the LVK O5 (A+)\footnote{L1 and H1: https://dcc.ligo.org/DocDB/0149/T1800042/005/\\AplusDesign.txt\\
+V1: https://git.ligo.org/publications/detectors/obs-scenarios-2019/blob/master/Scripts/Figure1/data/avirgo\_O5high\_NEW.txt\\
+K1: https://git.ligo.org/publications/detectors/obs-scenarios-2019/blob/master/CurvesForSimulation/kagra\_128Mpc.txt} and A\#\footnote{https://dcc.ligo.org/LIGO-T2300041-v1/public/Asharp\_strain.txt} sensitivities. We also include the ET noise curve with 10 km arm length\footnote{https://apps.et-gw.eu/tds/ql/?c=16492/ET10kmcolumns.txt} and the CE noise curve with 40 km arm length\footnote{https://dcc.cosmicexplorer.org/CE-T2000017/public/\\cosmic\_explorer\_strain.txt}. We assume that ET is an L-shape detector with the same location and orientation as Virgo, and CE has the same location and orientation as LIGO Livingston or Hanford based on the number of CE detectors. 
+
+With input cosmological parameters $H_0$ and $\Omega_{m0}$, \texttt{GWSim} generates mock galaxy distribution with a constant number density, and creates CBC events based on input population and merger rate evolution parameters whose host galaxies are randomly assigned to the mock galaxies for each redshift bin. Then the SNR of each event is computed by
+\begin{equation}
+	\rho = \left[4\int^{\infty}_0 \frac{|\tilde{h}(f)|^2}{S_n(f)} \right]^{1/2},
+\end{equation}
+where $\tilde{h}(f)$ is the GW waveform in the frequency domain, and $S_n(f)$ is the spectral noise density of the detector. The detected events are selected with SNRs higher than the chosen threshold. The duty cycle for each detector is set to be 0.75.
+
+To forecast the effects of the cosmic dipole in dark siren analysis in the LVK O4 stage, we generate mock O4 events for an observation time of 3 years. We simulate a mock universe with injected $H_0=70~{\rm km~s}^{-1}{\rm Mpc}^{-1}$ and $\Omega_{m0}=0.3$, and the galaxy number density of $10^{-5}~{\rm Mpc}^{-3}$. We use the Powerlaw + Peak black hole population model and the Madau merger rate redshift evolution model as used in the GWTC-3 cosmology paper \cite{LIGOScientific:2021aug}, with the parameters listed in Table \ref{tab:param}. We first generate mock events without injecting a cosmic dipole. The number of detections is 206 for an SNR threshold of 11. We also generate mock O5 events for 1 year of observations with the same setup, and obtain 3062 detections. Because the computational costs are high for the current \texttt{ICAROGW} package to handle thousands of events, we only use it to analyze 1 year of O5 detections, and we will approximate the analysis for 5 year of O5 detections in Sec. \ref{subsec:H0_effects}.
+
+\begin{table}[t]
+    \centering
+    \begin{tabular}{c|c|c}
+        \hline
+        Parameter & Definition & Value \\
+        \hline
+       $\alpha$  & \makecell{The power of the power-law\\primary mass distribution.}  & $3.78$ \\
+       \hline
+       $\beta$  & \makecell{The power of the power-law\\mass ratio distribution.}  & $0.81$ \\
+       \hline
+       $m_{\rm min}^{\rm BH}$ & \makecell{The minimum mass of the\\mass distribution $[M_\odot]$.} & $4.98$ \\
+       \hline
+       $m_{\rm max}^{\rm BH}$ & \makecell{The maximum mass of the\\mass distribution $[M_\odot]$.} & $112.5$ \\
+       \hline
+       $\lambda_p$ & \makecell{Fraction of the mass model in\\the Gaussian component.} & $0.03$ \\
+       \hline
+       $\mu_g$ & \makecell{Mean of the Gaussian component in\\the primary mass distribution.} & $32.27$ \\
+       \hline
+       $\sigma_g$ & \makecell{Width of the Gaussian component in\\the primary mass distribution.} & $3.88$ \\
+       \hline
+       $\delta_m$ & \makecell{Range of mass tapering at the lower\\end of the mass distribution.} & $4.8$ \\
+       \hline
+       $R_0$  & \makecell{The merger rate at $z=0$\\$[{\rm yr}^{-1}{\rm Gpc}^{-3}]$.}  & $20$ \\
+       \hline
+       $\gamma$  & \makecell{The power of the power-law rate\\evolution before redshift $z_p$.}  & $4.59$ \\
+       \hline
+       $k$  & \makecell{The power of the power-law rate\\evolution after redshift $z_p$.}  & $2.86$ \\
+       \hline
+       $z_p$  & \makecell{The redshift turning point of\\the rate evolution.} & $2.47$ \\
+       \hline
+    \end{tabular}
+    \caption{Parameters in the Power Law + Peak black hole mass distribution model and the Madau merger rate redshift evolution used in our GW simulation. The values are adopted from the LVK GWTC-3 cosmology paper \cite{LIGOScientific:2021aug}.}
+    \label{tab:param}
+\end{table}
+
+Next we use the same random seed to generate mock GW signals in the presence of a cosmic dipole. Now the signals are generated with modified observed component masses $m_1^{\rm obs}$, $m_2^{\rm obs}$ and luminosity distance $D_L^{\rm obs}$ computed by eq.~\eqref{eq:m_dip} and \eqref{eq:DL_dip}. The detected events are then selected by the SNRs of these new signals. Fig. \ref{fig:skymap_O5} shows the modification to $D_L^{\rm obs}$ for detected events from 1 year of O5 observations due to the cosmic dipole with the direction measured from the CMB. We find that the detection number of events increases by 11 with a dipole magnitude $g=0.01$.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.9\textwidth]{dipole_O5.png}
+    \caption{Skymap showing the detected GW events for 1 year of LVK O5 observations in galactic coordinates. The color indicates the modification in $D_L^{\rm obs}$ due to a cosmic dipole with $g=0.01$ and $(l^{\rm dip},b^{\rm dip})=(264^\circ,48^\circ)$.}
+    \label{fig:skymap_O5}
+\end{figure*}
+
+
+\subsection{Mock posterior samples}
+
+Once we obtain mock GW events, we generate posterior samples for parameters of the GW signals using \texttt{GWDALI} \cite{deSouza:2023ozp}, a package to perform derivative approximation for likelihood. This approximation is based on Taylor expansion of the logarithm of the likelihood around the maximum likelihood
+value ${\cal L}_0$, where the first order term of derivatives corresponds to the Fisher matrix approximation:
+\begin{align}
+	\log {\cal L} \approx & \log {\cal L}_0 - \frac{1}{2}\sum_{i,j}\langle\partial_i h(\theta_p)|\partial_j h(\theta_p)\rangle_0 \Delta\theta_{p,i} \Delta\theta_{p,j} \nonumber\\
+	& + {\cal O}(\partial^2).
+\label{eq:DALI}
+\end{align}
+Here the scalar product is defined as
+\begin{equation}
+	\langle h_i|h_j \rangle = 2\int^{\infty}_0 \frac{\tilde{h}_i(f)\tilde{h}^*_j(f)+\tilde{h}^*_i(f)\tilde{h}_j(f)}{S_n(f)} {\rm d}f,
+\end{equation}
+\texttt{GWDALI} generates stochastic samples for $\theta_p$ by the approximated likelihood computed in eq.~\eqref{eq:DALI}. In this way we can generate posterior samples for many mock events at a much lower computational cost than using the full likelihood.
+
+We use the IMRPhenomXPHM waveform \cite{Pratten:2020ceb} to generate posterior samples for 6 GW parameters $\{m_1^{\rm obs},m_2^{\rm obs},D_L^{\rm obs},\iota,\phi,\theta\}$, where $\iota$ is the inclination angle of the CBC, $\phi$ and $\theta$ are the right ascension and the declination of the signal. By including the higher modes in the IMRPhenomXPHM waveform, the degeneracy between $D_L^{\rm obs}$ and $\iota$ can be reduced. The posterior samples are generated for mock events each time we change the injected cosmic dipole magnitude.
+
+
+\subsection{Effects in $H_0$ constraint}
+\label{subsec:H0_effects}
+
+With posterior samples for GW parameters at hand, we then compute the posterior probability of $H_0$ using \texttt{ICAROGW}. We generate $10^6$ GW injections to compute the detection probability in the denominator of eq.~\eqref{eq:bayesian_likelihood}. We fix the population model and the merger rate redshift evolution parameters, and compute the 1-dimension posterior distribution of $H_0$. After the posterior distribution for each event is computed, we multiply them to obtain a combined posterior distribution $p(H_0)$, because there is no correlation between individual events for 1-dimension posterior computation. Such straightforward multiplication is not applicable in multi-dimensional parameter space where parameters correlate with each other.
+
+We first compute $p(H_0)$ using 206 mock O4 events without injecting a cosmic dipole, and obtain $H_0=71.85^{+3.65}_{-3.81}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$ with $1\sigma$ uncertainty, as shown in Fig. 
+\ref{fig:pH0_dip_O4}. Then we compute $p(H_0)$ with the same events in the presence of a cosmic dipole with $g=0.01$ and $(l^{\rm dip},b^{\rm dip})=(264^\circ,48^\circ)$ in galactic coordinates, and obtain $H_0=72.26^{+3.89}_{-3.61}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$. It shows that in the O4 stage, the cosmic dipole makes little deviations to the combined $p(H_0)$.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{pH0_dip_O4.png}
+    \caption{The comparison between combined posterior distribution for $H_0$ using 206 mock O4 events with and without injecting a cosmic dipole. The grey line shows the injected value of $H_0=70~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$.}
+    \label{fig:pH0_dip_O4}
+\end{figure}
+
+We also examine the same effects in the O5 stage. Using 3073 mock events for 1 year of O5 detections, we compute the combine $p(H_0)$ with the same injected cosmic dipole with $g=0.01$ as in the O4 test. To approximate the results for 5 years of O5 detections, we take the $5^{\rm th}$ power of $p(H_0)$ from 1 year detections assuming $p(H_0)$ in each year is similar to it\footnote{we smooth the curve of $p(H_0)$ in Fig. \ref{fig:pH0_dip_O5_pos_neg}, because \texttt{ICAROGW} approximates the integration in the numerator of eq.~\eqref{eq:bayesian_likelihood} by summing the posterior samples, which leads to wiggles in fine grids.}. Therefore we can obtain a more accurate constraint on $H_0$. We find the combine constraint gives $H_0=69.98^{+0.17}_{-0.19}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$, which is consistent with the injected value of $70$. The results demonstrate that the cosmic dipole has little impact on the $H_0$ measurement with O5 data as well. The reason could be that the biases induced by modification in $D_L^{\rm obs}$ due to the cosmic dipole even out by combining posterior of $H_0$ all over the sky, and that the bias induced by the detection number is not large enough for the O5 stage.
+
+In order to validate our statement above, we compute $p(H_0)$ for events located in the two hemispheres in the positive and the negative direction of the cosmic dipole respectively, as shown in Fig.~\ref{fig:pH0_dip_O5_pos_neg}. The line-of-sight direction of an event $\hat{z}(\phi,\theta)$ is determined by the mean of $\phi$ and $\theta$ from posterior samples. We obtain 1482 events in the hemisphere for $\hat{n}\cdot\hat{z}>0$, and 1591 events for $\hat{n}\cdot\hat{z}<0$. The reason that there are more events for $\hat{n}\cdot\hat{z}<0$ is that the SNRs increase for $D_L^{\rm obs}$ scaled by $[1+g(\hat{n}\cdot\hat{z})]$, so that more events pass the SNR threshold and vice versa. As a result, we find in Fig.~\ref{fig:pH0_dip_O5_pos_neg} that $p(H_0)$ for the two hemispheres peak on different sides of the injected $H_0$ value. The reason is that the likelihood depends on the redshift prior $p_{\rm rate}(z|\Lambda) {\rm d}V_c/{\rm d}z(\Lambda)$, where the growing rate of ${\rm d}V_c/{\rm d}z$ increases with redshift at the low redshift range (LVK detection range). Since higher $D_L^{\rm obs}$ scaled by $[1+g(\hat{n}\cdot\hat{z})]$ can be converted to higher redshift, and the redshift prior has a larger value and a steeper slope at higher redshift, the integration over redshift in eq.~\eqref{eq:bayesian_likelihood} gives larger results compared to $D_L^0$. Therefore the slope of a single $p(H_0)$ becomes larger, and the peak of combined $p(H_0)$ shifts to higher $H_0$ and vice versa. The deviation between the mean values of $H_0$ for the two hemispheres is nearly $1\sigma$ uncertainty. 
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{pH0_dip_O5_pos_neg_5yr_smooth.png}
+    \caption{Combined posterior distribution for $H_0$ using mock O5 events with an injected cosmic dipole for $g=0.01$. Orange curve: Combined posterior for all over the sky. Blue and green: Combined posteriors for the two hemispheres in the positive and the negative direction of the dipole.}
+    \label{fig:pH0_dip_O5_pos_neg}
+\end{figure}
+
+One may be able to constrain the cosmic dipole from the deviation between $H_0$ measured in the two hemispheres. However, more careful analysis is required for the dark siren method in different hemispheres, as the selection effects may be different for different line-of-sight directions in the presence of the cosmic dipole. With more detected events by the next-generation detectors, the deviation between $p(H_0)$ in different hemispheres will be larger due to smaller uncertainty for $H_0$. But it is also worth noted that by fixing the population and merger rate model as we did in this work, there would be biases in $p(H_0)$ from real GW data if assuming the wrong models. The safer approach to measure $H_0$ is to jointly measure population and merger rate model parameters, which will weaken the constraint on $H_0$, so that the biases due to the cosmic dipole will become less significant.
+
+%O4
+%No dipole $H_0=71.85^{+3.65}_{-3.81}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+%$g=0.01$, $H_0=72.26^{+3.89}_{-3.61}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+
+%O5 5yr
+%No dipole $H_0=70.16^{+0.13}_{-0.15}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+%$g=0.01$, $H_0=69.98^{+0.17}_{-0.19}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+%$\hat{n}^{\rm dip}\cdot\hat{z}>0$, $H_0=70.19^{+0.18}_{-0.24}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+%$\hat{n}^{\rm dip}\cdot\hat{z}<0$, $H_0=69.74^{+0.26}_{-0.17}~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Measurements of the cosmic dipole}
+\label{sec:measurements}
+%%%%%%%%%%%%%%%%%%%%%%
+
+In this section we will introduce the method to jointly measure $H_0$ and the cosmic dipole using golden dark sirens. We simulate mock golden dark sirens in different ground-based detector networks in the future and forecast constraints on $H_0$ and the cosmic dipole with this method.
+
+\subsection{Golden dark sirens}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.8\textwidth]{H0_XG_golden_g0p001.png}
+    \caption{Skymap showing the differences in $H_0$ measured from each golden dark sirens detected by the 1ET+2CEs network when not accounting for the cosmic dipole effects. The injected $H_0=70~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$. The injected dipole has $g=0.001$ and $(l^{\rm dip},b^{\rm dip})=(264^\circ,48^\circ)$.}
+    \label{fig:skymap_H0_XG}
+\end{figure*}
+
+One of the difficulties in GW cosmology is to obtain the redshifts of GW events, which usually relies on redshifts of their host galaxies. The localization of GWs is very limited nowadays, which could cover many galaxies in the localization area of an event, so that its host galaxy is hard to identify. One exception is bright sirens, whose host galaxies can be pinned down by EM counterparts. But there is also another possible way. From galaxy surveys, an empirical relation between the number density and luminosity of galaxies is summarized as the Schechter function \cite{1976ApJ...203..297S}. The number density of galaxies is lower for galaxies with higher luminosity. With the assumption that galaxies with higher luminosity have higher possibility to host CBCs because of larger stellar masses, one can identify the GW host galaxy in a very small localization area where there is only one brightest galaxy. Based on the Schechter function, it is found in ref. \cite{Singer:2016eax} that for redshift up to $0.1$, the areal density of galaxies at distance $r$ with luminosity greater than $L$ is approximated by
+\begin{align}
+    & N_{\rm gal} \approx 0.28~{\rm deg}^{-2} \nonumber\\
+    & \left(\frac{r}{100 {\rm Mpc}} \right)^3 \left(\frac{\phi^*}{4\times10^{-3}{\rm Mpc}^{-3}} \right) \Gamma\left(\alpha+1 ,\frac{L}{L^*}\right),
+    \label{eq:ngal_deg2}
+\end{align}
+where we adopt the B-band Schechter function parameters $\alpha=-1.25$, $\phi^*=1.2\times10^{-2}~h^3~{\rm Mpc}^{-3}$, and $L^*=1.2\times10^{10}~h^{-2}~L_\odot$ \cite{Longair:2008gba}. Under the assumption of our cosmological parameters $H_0=70~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$ and $\Omega_{m0}=0.3$, the luminosity distance at $z=0.1$ is approximately $460$ Mpc. From eq. \eqref{eq:ngal_deg2}, statistically only one galaxy with $L>L^*$ can be found within a sky area of $\sim 0.06~{\rm deg}^2$ up to $z=0.1$. Therefore, for a GW event detected within $\sim 0.06~{\rm deg}^2$ and $z\leq0.1$, the only brightest galaxies in this area has the highest probability to be its host galaxy, from which its redshift can be determined. Such an event is called a ``golden" dark siren, which offers a powerful tool for measuring $H_0$ \cite{Borhanian:2020vyr,Gupta:2022fwd,Chen:2024gdn}. In this work we will explore its potential in probing the cosmic dipole.
+
+We consider the detections of golden dark sirens with three different detector network configurations, namely 1ET+2A\#s, 1ET+1CE+1A\#, and 1ET+2CEs. In the first network, both LIGO detectors have A\# sensitivity. In the second network, we assume that LIGO Livingston is replaced by CE, and LIGO Hanford has A\# sensitivity. In the last network, both LIGO detectors are replaced by CEs. We again use \texttt{GWSim} to generate mock events with detector setups introduced in Sec. \ref{sec:GW_simulation}. We simulate BBHs, NSBHs and BNSs respectively within $z<0.1$ for 10 years of observations. The black hole population model and the CBC merger rate redshift evolution adopt the same parameters as in Table \ref{tab:param}. For the neutron star population, we apply a uniform distribution in the mass range of $[1.0M_\odot,3.0M_\odot]$. In addition, since the merger rates of NSBHs and BNSs have large uncertainties ($7.8$-$140~{\rm Gpc}^{-3}~{\rm yr}^{-1}$ for NSBHs and $10$-$1700~{\rm Gpc}^{-3}~{\rm yr}^{-1}$ for BNSs inferred from GWTC-3 \cite{KAGRA:2021duu}), we assume the same merger rate for BBHs, NSBHs and BNSs as a reasonable guess. 
+
+Since these events locate at very low redshifts, they have very high SNRs. In this scenario, the best-fit parameter values for GW signals would slightly deviate from the true values due to different noise realization, but they follow Gaussian distribution with the mean at the true values. In this case, the uncertainties of the parameters can be forecasted by the Fisher matrix $\boldsymbol{\Gamma}$ as \cite{Poisson:1995ef}
+\begin{equation}
+	p(\boldsymbol{\theta_p}) \propto \exp\left(-\frac{1}{2}\Gamma_{ij}\Delta\theta_{p,i}\Delta\theta_{p,j}\right).
+\end{equation}
+The parameter uncertainties are obtained from the covariance matrix $\Delta\theta_{p,i}=\sqrt{\Sigma_{ii}}$, which is the inverse of the Fisher matrix $\Sigma_{ij}=(\boldsymbol{\Gamma}^{-1})_{ij}$. We compute the uncertainties for the GW parameter set $\{m_1^{\rm obs},m_2^{\rm obs},D_L^{\rm obs},\iota,\phi,\theta\}$. Then we select golden dark sirens whose $90\%$ confidence sky area is within $0.06~{\rm deg}^2$. We compute the $90\%$ confidence sky area approximately by multiplying the $2\sigma$ uncertainty ranges of $\phi$ and $\theta$, since the $2\sigma$ uncertainty range cover the $95\%$ confidence interval. For each detector network, the number of each type of event and the total number of detected golden dark sirens are listed in Table \ref{tab:event_number}. We also check the number of golden dark sirens that LVK can detect, where the two LIGO detectors use A\# sensitivity, and Virgo and KAGRA use their designed sensitivities. However only one golden dark siren is detected, which cannot provide a constraint on the cosmic dipole.
+\begin{table}[t]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+        \multirow{2}{*}{\makecell{Detector\\network}} & \multicolumn{4}{|c|}{Golden dark siren number} \\
+        \cline{2-5}
+         & BBH & NSBH & BNS & Total \\
+        %\hline
+        %LVK (A\#) & 9 & 0 & 0 & 9 \\
+        \hline
+        1ET+2A\#s & 13 & 0 & 0 & 13 \\
+        \hline
+        1ET+1CE+1A\# & 31 & 2 & 2 & 35 \\
+        \hline
+        1ET+2CEs & 33 & 3 & 3 & 39  \\
+    \hline
+    \end{tabular}
+    \caption{Detected number of golden dark sirens for different detector networks for 10-year observations.}
+    \label{tab:event_number}
+\end{table}
+
+We show in Fig. \ref{fig:skymap_H0_XG} the locations of simulated golden dark sirens detected by the 1ET+2CEs network. In the figure we also demonstrate the biases in the $H_0$ measurement using $D_L^{\rm obs}$ and $z^{\rm obs}$ for these golden dark sirens if not accounting for the cosmic dipole effects. For an injected cosmic dipole magnitude $g=0.001$ and the CMB dipole direction $(l^{\rm dip},b^{\rm dip})=(264^\circ,48^\circ)$, the obtained maximum $H_0$ value is around $72.1~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$, which has a bias of around $3\%$ compared to the injected value of $70~{\rm km}~{\rm s}^{-1}~{\rm Mpc}^{-1}$. The minimum $H_0$ value is lower than the injected value by $\sim 1\%$, but since no mock event is located near the negative cosmic dipole direction, the real minimum $H_0$ value could have a larger bias similar to the maximum value. Given a sub-percent level of uncertainty in $H_0$ measurement with golden dark sirens detected by an ET+CE network discussed in \cite{Chen:2024gdn}, a bias of $3\%$ could be fatal for such measurement.
+
+
+\subsection{MCMC sampling}
+
+After we obtain mock golden dark siren data, we inject the cosmic dipole effects with $g=0.001$ and $(l^{\rm dip},b^{\rm dip})=(264^\circ,48^\circ)$ by modifying the observed quantities $m_1^{\rm obs}, m_2^{\rm obs}, D_{L}^{\rm obs}$ for GWs and $z^{\rm obs}$ for host galaxies of golden dark sirens. We then measure the cosmic dipole jointly with $H_0$ by $\chi^2$ minimization using the Markov Chain Monte Carlo (MCMC) sampling technique. The log-likelihood for $\chi^2$ statistics is given by
+\begin{equation}
+    \log{\cal L} = -\frac{\chi^2}{2},
+\end{equation}
+where we build
+\begin{equation}
+    \chi^2 = \sum_i^{N_{\rm obs}} \left\{\frac{D_{L,i}^{\rm obs}-D_L^0(z^0(z_i^{\rm obs},g,\hat{n}),H_0)[1+g(\hat{n}\cdot\hat{z}_i)]}{\Delta D_{L,i}^{\rm obs}}\right\}^2.
+\end{equation}
+Here $\Delta D_{L,i}^{\rm obs}$ is the uncertainty from Fisher matrix analysis. We restore $D_L^0$ in the CMB rest frame with $H_0$ and redshift in the CMB rest frame $z^0$, which is obtained by
+\begin{equation}
+    z^0(z_i^{\rm obs},g,\hat{n}) = \frac{1+z_i^{\rm obs}}{1+g(\hat{n}\cdot\hat{z}_i)}-1.
+    \label{eq:z0_convert}
+\end{equation}
+We then perform MCMC sampling with the \texttt{emcee} package \cite{emcee} to find the best-fit values for $\{H_0, g, l^{\rm dip}, b^{\rm dip}\}$. 
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Results}
+\label{sec:results}
+%%%%%%%%%%%%%%%%%%%%%%
+
+We show the joint posteriors of $H_0$ and the cosmic dipole parameters from MCMC sampling in the corner plots in this section. For the pessimistic case that only one ET is built, so that the detector network consists of ET and two LIGO detectors with A\#s sensitivity, the result is presented in Fig. \ref{fig:emcee_dip_g0p001_H0_corner_ET_AS}. Although $H_0$ can be constrained at around $0.46\%$ uncertainty, the detected golden dark siren number is too few to give a tight constraint on the cosmic dipole. The $1\sigma$ uncertainty for the dipole magnitude is around $27\%$ for an injected value of $g=0.001$, and the uncertainty area of the dipole direction is over $800~{\rm deg}^2$. But with at least one CE, the constraints on $g$ and $(l^{\rm dip}, b^{\rm dip})$ become much tighter as shown in Fig \ref{fig:emcee_dip_g0p001_H0_corner_XG_AS} and \ref{fig:emcee_dip_g0p001_H0_corner} because of about two times increase in the number of golden dark sirens. The $1\sigma$ uncertainties of measurements for each network are listed in Table \ref{tab:g_emcee}.
+
+%\begin{figure}[t]
+%    \centering
+%    \includegraphics[width=\linewidth]{emcee_dip_g0p001_H0_corner_AS_zoom.pdf}
+%    \caption{Joint posterior for $H_0$ and the dipole parameters form 9 golden dark sirens by LVK with A\# sensitivity, with an injected value of $g=10^{-3}$.}
+%    \label{fig:emcee_dip_g0p001_H0_corner_AS}
+%\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{emcee_dip_g0p001_H0_corner_ET_AS_zoom.pdf}
+    \caption{Joint posterior for $H_0$ and the dipole parameters form 13 golden dark sirens by 1ET+2A\# network, with an injected value of $g=10^{-3}$.}
+    \label{fig:emcee_dip_g0p001_H0_corner_ET_AS}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{emcee_dip_g0p001_H0_corner_XG_AS_zoom.pdf}
+    \caption{Joint posterior for $H_0$ and the dipole parameters form 35 golden dark sirens by 1ET+1CE+1A\# network, with an injected value of $g=10^{-3}$.}
+    \label{fig:emcee_dip_g0p001_H0_corner_XG_AS}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{emcee_dip_g0p001_H0_corner_zoom.pdf}
+    \caption{Joint posterior for $H_0$ and the dipole parameters form 39 golden dark sirens by 1ET+2CE network, with an injected value of $g=10^{-3}$.}
+    \label{fig:emcee_dip_g0p001_H0_corner}
+\end{figure}
+
+It is shown that by combining ET with one CE and one LIGO detector, 35 golden dark sirens can be detected, which can thus reduce the uncertainties of all parameters by around $3/4$. Moreover, in the most optimistic case where both LIGO detectors are replaced by CEs, the constraints are further improved slightly, since the golden dark siren number increases by 4. The cosmic dipole magnitude $g$ is constrained down to $6\%$ uncertainty. Meanwhile, by multiplying the $1\sigma$ uncertainty range of $l^{\rm dip}$ and $b^{\rm dip}$, the dipole direction can be constrained within $120~{\rm deg}^2$. This constraint is not as accurate as the CMB constraint, but it is slightly better than the constraints obtained by radio source number counting. 
+
+\begin{table}[t]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+        \multirow{2}{*}{Detector network} & \multicolumn{4}{|c|}{$1\sigma$ uncertainty} \\
+        \cline{2-5}
+         & $H_0$ & $g$ & $l^{\rm dip}$ & $b^{\rm dip}$ \\
+        \hline
+        1ET+2A\#s & $0.46\%$ & $27\%$ & - & - \\
+        \hline
+        1ET+1CE+A\# & $0.13\%$ & $7\%$ & $8^\circ$ & $6^\circ$  \\
+        \hline
+        1ET+2CEs & $0.11\%$ & $6\%$ & $6^\circ$ & $5^\circ$ \\
+    \hline
+    \end{tabular}
+    \caption{$1\sigma$ uncertainty for parameter measurements by MCMC sampling with forecasted golden dark sirens by different detector networks. For the 1ET+2A\#s network, $l^{\rm dip}$ and $b^{\rm dip}$ have non-Gaussian distribution, so the 1$\sigma$ errors are not obtained.}
+    \label{tab:g_emcee}
+\end{table}
+
+On the other hand, our constraint is comparable to the constraints forecasted by bright sirens with the next-generation detector network for 10-year observations in \cite{Cousins:2024bhk}. Although the golden dark sirens we found are much fewer than bright sirens forecasted in their work, they are mostly BBHs located at low redshifts, and thus have much larger SNRs. As a result, their observed luminosity distances are measured more precisely, which leads to better constraints on $H_0$ and the cosmic dipole. A second reason is that we convert the observed redshift into the rest-frame redshift as in eq. \eqref{eq:z0_convert}, and then construct the rest-frame luminosity distance from it, which is a step neglected in \cite{Cousins:2024bhk}. This conversion also provides constraint on the cosmic dipole.
+
+We also investigate the constraints on the cosmic dipole for different injected values of the dipole magnitude $g$, but keeping the dipole direction unchanged. We use the same set of simulated golden dark sirens detected by the most optimistic network 1ET+2CEs, but vary the value of $g$ when modifying $m_1^{\rm obs}$, $m_2^{\rm obs}$, $D_L^{\rm obs}$ and $z^{\rm obs}$. We then perform Fisher matrix analyses for golden dark siren datasets with different injected values of $g$.
+We run MCMC sampling to measure $g$, $l^{\rm dip}$ and $b^{\rm dip}$ with and without joint estimation on $H_0$ respectively. The marginalized posteriors in both cases are plotted on both sides of the violin plots in Fig. \ref{fig:g_violin} and \ref{fig:dec_violin} for $g$ and the direction (orange violins for joint estimation with $H_0$, and blue violins for without it). 
+
+We find that when jointly measured with $H_0$, the dipole magnitude and direction can be well constrained for $g$ in the order of $10^{-3}$. However, for $g$ in the order of $10^{-4}$, we cannot obtain a meaningful constraint on the dipole parameters. On the other hand, when measuring the cosmic dipole with fixed $H_0$, the constraints for $g$ in the order of $10^{-3}$ are similar to those jointly measured with $H_0$. But we can still obtain strong constraints on $g$ and the dipole direction for $g$ in the order of $10^{-4}$. The results show that joint estimation with $H_0$ lowers the constrainability of the dipole magnitude and direction. Although the joint posterior corner plot in Fig. \ref{fig:emcee_dip_g0p001_H0_corner} shows little degeneracy between $H_0$ and the cosmic dipole parameters, including more parameters in the sampling process could lead to such downgrade in the cosmic dipole constraints.
+
+
+%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusions}
+\label{sec:conclusions}
+%%%%%%%%%%%%%%%%%%%%%%
+
+In the first part of this work, we investigated the cosmic dipole effects in $H_0$ measurement with the dark siren method. Using simulated BBHs detected in the LVK O4 and O5 observations, we found that the cosmic dipole effects won't cause significant biases in $p(H_0)$ using the population method with a fixed population model.  The reason could be that the deviation in the number of GW detections for LVK induced by the cosmic dipole is too small, which is in the order of $10$ for 5 years of O5 observations. When combining $p(H_0)$ for events all over the sky, the cosmic dipole effects on $D_L^{\rm obs}$ cancel out for events in hemispheres on both sides of the cosmic dipole direction. Therefore no significant bias is found in the combined $p(H_0)$.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{g_violinplot.png}
+    \caption{Violin plot showing the marginalized posteriors of $g$ by MCMC sampling using mock golden dark sirens detected by the 1ET+2CEs network for each injected value of $g$. Orange violins show the results for joint estimation with $H_0$, and blue violins show the results for fixing $H_0$.}
+    \label{fig:g_violin}
+\end{figure}
+\begin{figure}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=\linewidth]{ra_violinplot.png}
+\end{subfigure}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=\linewidth]{dec_violinplot.png}
+\end{subfigure}
+    \caption{Violin plot showing the marginalized posteriors of $l^{\rm dip}$ (upper panel) and $b^{\rm dip}$ (lower panel) by MCMC sampling using mock golden dark sirens detected by the 1ET+2CEs network for each injected value of $g$. Orange violins show the results for joint estimation with $H_0$, and blue violins show the results for fixing $H_0$.}
+    \label{fig:dec_violin}
+\end{figure}
+
+However, the cosmic dipole effects could become significant in the era of next-generation GW detectors. Since ET and CE are expected to detect $10^5$-$10^6$ events per year, the deviation in the detection number due to the cosmic dipole could reach an order of $10^3$-$10^4$, which could bring significant biases in $H_0$ measurement with the dark siren method. The current dark siren tools are too computational expensive to handle the large number of events by next-generation detectors, so the forecast of the cosmic dipole effects with ET and CE observations is not easy to perform at the moment. In addition, the selection effects on sky localization should also be taken into account for the future dark siren technique, because the detection probability could change due to the cosmic dipole effects on $D_L^{\rm obs}$. Moreover, when incorporating redshift information from galaxy catalogues in the dark siren method, $H_0$ measurement could be more accurate, so the cosmic dipole effects could be more significant as well. We leave further investigation on these topics to future's works.
+
+In the second part of our work, we proposed to use golden dark sirens detected by the next-generation detector networks to measure the cosmic dipole jointly with $H_0$. We found that for dipole magnitude $g=0.001$, a network consisting of three detectors, where at least two next-generation detectors like ET and CE are included, can yield a tight constrain on the dipole magnitude and the direction. With the most optimistic network 1ET+2CEs, $g$ can be constrained down to $6\%$, and the dipole direction can be constrained within $120~{\rm deg}^2$. In addition, we also found that when $g$ is at the order of $10^{-4}$, it cannot be constrained using golden dark sirens with joint estimation with $H_0$. However, when fixing $H_0$ in the measurement, moderate constraints can still be obtained for the dipole magnitude and the direction.
+
+It should be noted that our measurement of the cosmic dipole depends on the assumption that the host galaxies of the golden dark sirens are correctly identified. The probability for the brightest galaxy within the localization area of a golden dark siren to be its host galaxy is not quantitatively calculated. It could be possible that the host galaxy of a GW source is not the brightest galaxy. Therefore quantitative calculation of the host galaxy probability are needed in future's works to enhance the accuracy of the golden dark siren measurement. On the other hand, if GWs from BNSs and NSBHs are accompanied by EM counterparts such as kilonova, their host galaxies can also be pinned down. By including bright sirens in the joint analysis with golden dark sirens, the precision of cosmic dipole measurement can be enhanced due to the increased event number. However, the detection rate of such bright sirens has a large uncertainty from the current data, which makes it difficult to perform an accurate forecast. In addition, the peculiar velocity of host galaxies of GW events may cause systematics in the results (see \cite{Nishizawa:2010xx,Nimonkar:2023pyt} for systematics in measuring $H_0$), which should be taken into account for a more precise measurement in future works.
+
+In summary, although the cosmic dipole has little impact to the dark siren cosmology with LVK detections, more careful consideration is needed for the dark siren method in the era of next-generation detectors. With at least one ET and one CE, a strong constraint on the cosmic dipole can be obtained with the golden dark sirens, which can provide an independent measurement of the cosmic dipole and shed light on the cosmic dipole tension.
+
+
+
+%%%%%%%%%%%%%%%%%%%% ACKNOWLEDGMENTS %%%%%%%%%%%%%%%%%%
+\section*{Acknowledgments}
+
+The author is grateful to Jun Zhang, Johannes Noller and Martin Hendry for useful comments on this work. A C is supported by the National Natural Science Foundation of China (NSFC) under Grant No. E414660101 and 12147103.
+This material is based upon work supported by NSF's LIGO Laboratory which is a major facility fully funded by the National Science Foundation.
+We are grateful for computational resources provided by the LIGO Laboratory and supported by the National Science Foundation Grants PHY-0757058 and PHY-0823459.
+We are also grateful to the High Performance Computing Center (HPCC) of ICTP-AP for performing the numerical computations in this paper.
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+\appendix
+
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{apsrev4-1}
+\bibliography{biblio}{}
+
+\end{document}
